@@ -1,28 +1,9 @@
-var express = require("express");
-var bodyParser = require("body-parser");
-var { graphqlExpress, graphiqlExpress } = require("apollo-server-express");
-var { makeExecutableSchema } = require("graphql-tools");
+import express from 'express';
+import { graphqlExpress, graphiqlExpress } from "apollo-server-express";
+import bodyParser  from "body-parser";
+import { schema } from "./data/schema";
 
-var typeDefs = [
-  `
-type Query {
-  ping: String
-}
 
-schema {
-  query: Query
-}`
-];
-
-var resolvers = {
-  Query: {
-    ping(root) {
-      return "pong";
-    }
-  }
-};
-
-var schema = makeExecutableSchema({ typeDefs, resolvers });
 var app = express();
 app.use("/graphql", bodyParser.json(), graphqlExpress({ schema }));
 app.use("/graphiql", graphiqlExpress({ endpointURL: "/graphql" }));
