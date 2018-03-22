@@ -1,5 +1,5 @@
 import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
-import { mocks } from './mocks';
+import mocks from './mocks';
 
 const typeDefs = `
 type Query {
