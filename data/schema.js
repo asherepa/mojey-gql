@@ -2,7 +2,7 @@ import { makeExecutableSchema } from 'graphql-tools';
 
 import resolvers from './resolvers';
 
-const schemaString = `
+const typeDefs = `
 type Query {
   transaction(id: ID!): Transaction
   allTransactions: [Transaction]
@@ -17,7 +17,7 @@ type Transaction {
 `;
 
 const schema = makeExecutableSchema({
-  typeDefs: [schemaString],
+  typeDefs,
   resolvers,
 });
 
