@@ -1,5 +1,5 @@
-import { Mongoose } from 'mongoose';
 import _ from 'lodash';
+import Mongoose from 'mongoose';
 
 Mongoose.Promise = global.Promise;
 

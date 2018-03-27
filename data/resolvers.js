@@ -1,28 +1,12 @@
-import { Author, View } from './connectors';
+import { Transaction } from '../connectors';
 
 const resolvers = {
   Query: {
-    author(root, args) {
-      return { id: 1, firstName: 'First', lastName: 'Stumb' };
+    transaction(obj, args, context, info) {
+      return Transaction.findOne({ _id: args.id });
     },
-    allAuthors() {
-      return [{ id: 1, firstName: 'First', lastName: 'Stumb' }];
-    },
-  },
-  Author: {
-    posts(author) {
-      return [
-        { id: 1, title: 'A post', text: 'Some text', views: 2 },
-        { id: 2, title: 'Another post', text: 'Some other text', views: 200 },
-      ];
-    },
-  },
-  Post: {
-    author(post) {
-      return post.getAuthor();
-    },
-    views(post) {
-      return View.findOne({ postId: post.id }).then(view => view.views);
+    allTransactions() {
+      return Transaction.find();
     },
   },
 };

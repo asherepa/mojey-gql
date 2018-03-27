@@ -1,27 +1,24 @@
-import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
+import { makeExecutableSchema } from 'graphql-tools';
+
 import resolvers from './resolvers';
 
-const typeDefs = `
+const schemaString = `
 type Query {
-  author(firstName: String, lastName: String): Author
-  allAuthors: [Author]
+  transaction(id: ID!): Transaction
+  allTransactions: [Transaction]
   getFortuneCookie: String # we'll use this later
 }
-type Author {
-  id: Int
-  firstName: String
-  lastName: String
-  posts: [Post]
-}
-type Post {
-  id: Int
-  title: String
-  text: String
-  views: Int
-  author: Author
+
+type Transaction {
+  id: ID!
+  debit: Float
+  credit: Float
 }
 `;
 
-const schema = makeExecutableSchema({ typeDefs, resolvers });
+const schema = makeExecutableSchema({
+  typeDefs: [schemaString],
+  resolvers,
+});
 
 export default schema;
