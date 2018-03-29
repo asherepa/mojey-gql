@@ -1,6 +1,6 @@
 import { Transaction } from '../connectors';
 
-const resolvers = {
+const resolverMap = {
   Query: {
     transaction(obj, args, context, info) {
       return Transaction.findOne({ _id: args.id });
@@ -11,4 +11,4 @@ const resolvers = {
   },
 };
 
-export default resolvers;
+export default resolverMap;

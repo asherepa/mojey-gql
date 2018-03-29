@@ -1,6 +1,6 @@
 import { makeExecutableSchema } from 'graphql-tools';
 
-import resolvers from './resolvers';
+import resolverMap from './resolvers';
 
 const typeDefs = `
 type Query {
@@ -18,7 +18,7 @@ type Transaction {
 
 const schema = makeExecutableSchema({
   typeDefs,
-  resolvers,
+  resolverMap,
 });
 
 export default schema;
