@@ -6,7 +6,6 @@ const typeDefs = `
 type Query {
   transaction(id: ID!): Transaction
   allTransactions: [Transaction]
-  getFortuneCookie: String # we'll use this later
 }
 
 type Transaction {
