@@ -1,26 +1,18 @@
-import _ from 'lodash';
-import Mongoose from 'mongoose';
+const setupTransactionModel = (mongoose) => {
+  const transactionSchema = new mongoose.Schema({
+    currency: String,
+    memo: String,
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
+  });
 
-Mongoose.Promise = global.Promise;
+  const Transaction = mongoose.model('transactions', transactionSchema);
 
-const mongo = Mongoose.connect('mongodb://localhost/accounting', {
-  useMongoClient: true,
-});
+  return {
+    Transaction,
+  };
+};
 
-const TransactionSchema = Mongoose.Schema({
-  credit: Number,
-  debit: Number,
-  datetime: Date,
-  path: [String],
-  accounts: String,
-  book: String,
-  memo: String,
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-});
-
-const Transaction = Mongoose.model('transactions', TransactionSchema);
-
-export { Transaction };
+export { setupTransactionModel };
