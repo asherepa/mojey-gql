@@ -21,8 +21,12 @@ const resolverMap = {
 
 export async function context(headers, secrets) {
   let context = {};
+
+  mongoose.Promise = global.Promise;
+  mongoose.set('debug', true);
+
   const mongo = await mongoose.createConnection(
-    'mongodb://localhost/accounting',
+    'mongodb://localhost:27017/accounting',
     {
       useMongoClient: true,
     },
@@ -31,6 +35,9 @@ export async function context(headers, secrets) {
     ...context,
     ...setupTransactionModel(mongo),
   };
+  mongo.on('open', () => {
+    console.log('Connection opened');
+  });
   console.log('context', context);
   return context;
 }
