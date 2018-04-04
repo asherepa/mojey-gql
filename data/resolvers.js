@@ -12,8 +12,9 @@ const resolverMap = {
   },
   Mutation: {
     createTransaction: ({ input }, context) => {
-      const TransactionCtx = context.Transaction;
+      console.log('createTransaction');
       console.log(input);
+      const TransactionCtx = context.Transaction;
       return new TransactionCtx(input).save();
     },
   },
@@ -25,7 +26,7 @@ export async function context(headers, secrets) {
   mongoose.Promise = global.Promise;
   mongoose.set('debug', true);
 
-  const mongo = await mongoose.createConnection(
+  const conn = await mongoose.createConnection(
     'mongodb://localhost:27017/accounting',
     {
       useMongoClient: true,
@@ -33,9 +34,9 @@ export async function context(headers, secrets) {
   );
   context = {
     ...context,
-    ...setupTransactionModel(mongo),
+    ...setupTransactionModel(conn),
   };
-  mongo.on('open', () => {
+  conn.on('open', () => {
     console.log('Connection opened');
   });
   console.log('context', context);
