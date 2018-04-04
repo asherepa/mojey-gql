@@ -1,5 +1,5 @@
-const setupTransactionModel = (mongoose) => {
-  const transactionSchema = new mongoose.Schema({
+const setupTransactionModel = (conn) => {
+  const transactionSchema = new conn.Schema({
     currency: String,
     memo: String,
     createdAt: {
@@ -8,7 +8,7 @@ const setupTransactionModel = (mongoose) => {
     },
   });
 
-  const Transaction = mongoose.model('transactions', transactionSchema);
+  const Transaction = conn.model('Transaction', transactionSchema);
 
   return {
     Transaction,
